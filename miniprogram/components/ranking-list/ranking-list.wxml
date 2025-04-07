@@ -1,0 +1,34 @@
+<view class="ranking-list-container">
+  <view class="section-title" wx:if="{{title}}">
+    <view class="title">{{title}}</view>
+    <view class="see-all" wx:if="{{showMore}}" bindtap="onTapMore">{{moreText}}</view>
+  </view>
+
+  <view class="ranking-list">
+    <view 
+      class="ranking-item" 
+      wx:for="{{books}}" 
+      wx:key="id" 
+      bindtap="onTapItem" 
+      data-index="{{index}}"
+    >
+      <view class="ranking-number {{index < topCount ? 'top' : ''}}">{{index + 1}}</view>
+      <view class="ranking-info">
+        <view class="book-title">{{item.title}}</view>
+        <view class="book-meta">
+          <view class="meta-item">
+            <text class="meta-icon">👁️</text>
+            <text class="meta-text">{{item.readCount}}</text>
+          </view>
+          <view class="meta-item">
+            <text class="meta-icon">⭐</text>
+            <text class="meta-text">{{item.rating}}</text>
+          </view>
+          <view class="meta-item">
+            <text class="meta-text">{{item.category}} / {{item.status}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

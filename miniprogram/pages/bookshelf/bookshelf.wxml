@@ -1,0 +1,110 @@
+<!-- pages/bookshelf/bookshelf.wxml -->
+<view class="bookshelf-page">
+  <!-- 未登录状态 -->
+  <view class="login-container" wx:if="{{!hasUserInfo}}">
+    <view class="login-icon">📚</view>
+    <view class="login-text">登录后可查看您的书架</view>
+    <button class="login-btn" bindtap="onTapLogin">点击登录</button>
+  </view>
+  
+  <!-- 已登录状态 -->
+  <block wx:else>
+    <!-- 顶部操作栏 -->
+    <view class="top-bar">
+      <view class="page-title" wx:if="{{!isEditing}}">我的书架</view>
+      <view class="select-info" wx:else>已选择 {{selectedBooks.length}} 本</view>
+      
+      <view class="action-area">
+        <view class="edit-btn" bindtap="toggleEditMode" wx:if="{{!isEditing && booksData.shelfBooks.length > 0}}">
+          编辑
+        </view>
+        <view class="cancel-btn" bindtap="cancelEdit" wx:if="{{isEditing}}">
+          取消
+        </view>
+      </view>
+    </view>
+    
+    <!-- 书架内容 -->
+    <scroll-view scroll-y class="bookshelf-content" wx:if="{{!loading}}">
+      <!-- 最近阅读 -->
+      <view class="recent-reading" wx:if="{{booksData.recentBooks.length > 0 && !isEditing}}">
+        <view class="section-title">最近阅读</view>
+        <view class="recent-books">
+          <view class="recent-book-item" 
+                wx:for="{{booksData.recentBooks}}" 
+                wx:key="id">
+            <view class="book-cover-container">
+              <image class="book-cover" src="{{item.coverUrl}}" mode="aspectFill" lazy-load></image>
+              <view class="book-progress-bar">
+                <view class="progress-inner" style="width: {{item.progress}}%"></view>
+              </view>
+            </view>
+            <view class="book-info">
+              <view class="book-title">{{item.title}}</view>
+              <view class="book-author">{{item.author}}</view>
+              <view class="book-progress-text">已读{{item.progress}}%</view>
+              <view class="book-time">{{item.lastReadTime}}</view>
+            </view>
+            <view class="book-actions">
+              <view class="read-btn" 
+                    data-book-id="{{item.id}}" 
+                    bindtap="onTapContinueReading">继续阅读</view>
+              <view class="remove-btn" 
+                    data-book-id="{{item.id}}" 
+                    bindtap="onTapRemoveRecent">移除</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 书架图书 -->
+      <view class="shelf-books">
+        <view class="section-header">
+          <view class="section-title">我的书架</view>
+          <view class="select-all" bindtap="toggleSelectAll" wx:if="{{isEditing}}">
+            {{selectedBooks.length === booksData.shelfBooks.length ? '取消全选' : '全选'}}
+          </view>
+        </view>
+        
+        <!-- 书架为空 -->
+        <view class="empty-shelf" wx:if="{{booksData.shelfBooks.length === 0}}">
+          <view class="empty-icon">📖</view>
+          <view class="empty-text">书架空空如也，快去添加图书吧</view>
+        </view>
+        
+        <!-- 书架图书列表 -->
+        <view class="book-grid" wx:else>
+          <view class="book-item {{selectedBooks.includes(item.id) ? 'selected' : ''}}" 
+                wx:for="{{booksData.shelfBooks}}" 
+                wx:key="id" 
+                data-book-id="{{item.id}}" 
+                bindtap="onTapBook">
+            <!-- 编辑模式下的选择状态 -->
+            <view class="select-circle {{selectedBooks.includes(item.id) ? 'checked' : ''}}" wx:if="{{isEditing}}">
+              <view class="select-inner" wx:if="{{selectedBooks.includes(item.id)}}"></view>
+            </view>
+            
+            <!-- 图书封面 -->
+            <view class="book-cover-container">
+              <image class="book-cover" src="{{item.coverUrl}}" mode="aspectFill" lazy-load></image>
+              <view class="new-tag" wx:if="{{item.isNew}}">新</view>
+            </view>
+            <view class="book-title">{{item.title}}</view>
+            <view class="book-update-time" wx:if="{{item.updateTime}}">{{item.updateTime}}</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+    
+    <!-- 加载中 -->
+    <view class="loading-container" wx:if="{{loading}}">
+      <view class="loading-spinner"></view>
+      <view class="loading-text">加载中...</view>
+    </view>
+    
+    <!-- 底部编辑工具栏 -->
+    <view class="bottom-toolbar" wx:if="{{isEditing}}">
+      <view class="delete-btn" bindtap="deleteSelectedBooks">删除</view>
+    </view>
+  </block>
+</view> 

@@ -1,0 +1,2605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>男同性恋小说小程序 UI设计</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .ui-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            background-color: white;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border: 10px solid #333;
+        }
+        
+        .phone-content {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .phone-title {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .capsule-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 85px;
+            height: 30px;
+            background-color: #000;
+            border-radius: 15px;
+            z-index: 1000;
+        }
+
+        /* 首页样式 */
+        .home-page {
+            background: linear-gradient(145deg, #f8f9fc, #ffffff);
+            height: 100%;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: rgba(240, 240, 245, 0.8);
+            border-radius: 20px;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            margin-top: 40px;
+        }
+
+        .search-bar i {
+            color: #8a8a8a;
+            margin-right: 10px;
+        }
+
+        .search-bar input {
+            border: none;
+            background: transparent;
+            flex-grow: 1;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .banner {
+            width: 100%;
+            height: 160px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .see-all {
+            font-size: 13px;
+            color: #6e80e1;
+            font-weight: normal;
+        }
+
+        .recommend-list {
+            display: flex;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            scrollbar-width: none;
+        }
+
+        .recommend-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .book-card {
+            min-width: 110px;
+            margin-right: 15px;
+        }
+
+        .book-cover {
+            width: 110px;
+            height: 150px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 8px;
+        }
+
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .book-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .book-author {
+            font-size: 12px;
+            color: #8a8a8a;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #6e80e1, #4e64e7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            box-shadow: 0 5px 15px rgba(110, 128, 225, 0.2);
+        }
+
+        .category-icon i {
+            color: white;
+            font-size: 24px;
+        }
+
+        .category-name {
+            font-size: 12px;
+            color: #333;
+            text-align: center;
+        }
+
+        .hot-list {
+            margin-bottom: 25px;
+        }
+
+        .hot-item {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .hot-rank {
+            width: 24px;
+            height: 24px;
+            background-color: #f0f0f5;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #8a8a8a;
+        }
+
+        .hot-rank.top {
+            background: linear-gradient(135deg, #6e80e1, #4e64e7);
+            color: white;
+        }
+
+        .hot-info {
+            flex-grow: 1;
+        }
+
+        .hot-meta {
+            display: flex;
+            font-size: 12px;
+            color: #8a8a8a;
+            margin-top: 4px;
+        }
+
+        .hot-meta span {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .hot-meta i {
+            font-size: 12px;
+            margin-right: 4px;
+        }
+
+        .tab-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tab-icon {
+            font-size: 24px;
+            color: #8a8a8a;
+            margin-bottom: 4px;
+        }
+
+        .tab-item.active .tab-icon {
+            color: #6e80e1;
+        }
+
+        .tab-name {
+            font-size: 12px;
+            color: #8a8a8a;
+        }
+
+        .tab-item.active .tab-name {
+            color: #6e80e1;
+            font-weight: 500;
+        }
+
+        /* 分类页面样式 */
+        .category-page {
+            background: linear-gradient(145deg, #f8f9fc, #ffffff);
+            height: 100%;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 40px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .page-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .filter-bar {
+            display: flex;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .filter-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-item {
+            margin-right: 15px;
+            font-size: 14px;
+            color: #8a8a8a;
+            white-space: nowrap;
+            padding: 5px 12px;
+            border-radius: 15px;
+        }
+
+        .filter-item.active {
+            background-color: #6e80e1;
+            color: white;
+            font-weight: 500;
+        }
+
+        .sub-filter {
+            display: flex;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .sub-filter::-webkit-scrollbar {
+            display: none;
+        }
+
+        .sub-filter-item {
+            margin-right: 15px;
+            font-size: 13px;
+            color: #8a8a8a;
+            white-space: nowrap;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        .sub-filter-item.active {
+            color: #6e80e1;
+            font-weight: 500;
+        }
+
+        .sub-filter-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #6e80e1;
+            border-radius: 1px;
+        }
+
+        .category-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .category-book {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .category-book-cover {
+            width: 100%;
+            height: 220px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 8px;
+        }
+
+        .category-book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .category-tag {
+            display: inline-block;
+            font-size: 10px;
+            color: #6e80e1;
+            background-color: rgba(110, 128, 225, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-top: 4px;
+            margin-right: 4px;
+        }
+
+        /* 搜索页面样式 */
+        .search-page {
+            background: linear-gradient(145deg, #f8f9fc, #ffffff);
+            height: 100%;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .search-header {
+            display: flex;
+            align-items: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .search-input-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            background-color: rgba(240, 240, 245, 0.8);
+            border-radius: 20px;
+            padding: 10px 15px;
+            margin-right: 10px;
+        }
+
+        .search-input-container i {
+            color: #8a8a8a;
+            margin-right: 10px;
+        }
+
+        .search-input {
+            border: none;
+            background: transparent;
+            flex-grow: 1;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .cancel-btn {
+            font-size: 14px;
+            color: #6e80e1;
+        }
+
+        .search-history {
+            margin-bottom: 25px;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .history-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .clear-history {
+            font-size: 13px;
+            color: #8a8a8a;
+        }
+
+        .history-list {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .history-item {
+            font-size: 13px;
+            color: #8a8a8a;
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 6px 12px;
+            border-radius: 15px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .search-hot {
+            margin-bottom: 25px;
+        }
+
+        .hot-searches {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .hot-search-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .hot-number {
+            width: 20px;
+            height: 20px;
+            background-color: #f0f0f5;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #8a8a8a;
+        }
+
+        .hot-number.top {
+            background: linear-gradient(135deg, #6e80e1, #4e64e7);
+            color: white;
+        }
+
+        .hot-keyword {
+            font-size: 14px;
+            color: #333;
+            flex-grow: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .search-results {
+            margin-top: 15px;
+        }
+
+        .result-meta {
+            font-size: 13px;
+            color: #8a8a8a;
+            margin-bottom: 15px;
+        }
+
+        .result-item {
+            display: flex;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .result-cover {
+            width: 70px;
+            height: 100px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .result-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .result-info {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .result-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .result-author {
+            font-size: 13px;
+            color: #8a8a8a;
+            margin-bottom: 8px;
+        }
+
+        .result-description {
+            font-size: 13px;
+            color: #666;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .result-meta-info {
+            display: flex;
+            font-size: 12px;
+            color: #8a8a8a;
+        }
+
+        .result-meta-info span {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .result-meta-info i {
+            font-size: 12px;
+            margin-right: 4px;
+        }
+
+        /* 小说详情页样式 */
+        .detail-page {
+            background: linear-gradient(145deg, #f8f9fc, #ffffff);
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .detail-header {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: blur(10px);
+            opacity: 0.6;
+            z-index: 0;
+        }
+
+        .header-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(255,255,255,1));
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 50px;
+            left: 15px;
+            z-index: 2;
+            width: 36px;
+            height: 36px;
+            border-radius: 18px;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-size: 20px;
+        }
+
+        .book-info {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            padding: 70px 20px 0;
+        }
+
+        .detail-cover {
+            width: 120px;
+            height: 160px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .detail-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .detail-info {
+            flex-grow: 1;
+        }
+
+        .detail-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .detail-author {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .detail-stats {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .stat-item {
+            margin-right: 15px;
+            font-size: 13px;
+            color: #666;
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-item i {
+            margin-right: 5px;
+            font-size: 14px;
+        }
+
+        .detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .detail-tag {
+            font-size: 12px;
+            color: #6e80e1;
+            background-color: rgba(110, 128, 225, 0.1);
+            padding: 3px 10px;
+            border-radius: 15px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .detail-body {
+            padding: 20px;
+        }
+
+        .detail-section {
+            margin-bottom: 25px;
+        }
+
+        .detail-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .book-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .read-more {
+            font-size: 14px;
+            color: #6e80e1;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .action-buttons {
+            display: flex;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .action-btn {
+            flex: 1;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 22px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .read-btn {
+            background: linear-gradient(135deg, #6e80e1, #4e64e7);
+            color: white;
+            margin-right: 15px;
+            box-shadow: 0 5px 15px rgba(110, 128, 225, 0.3);
+        }
+
+        .shelf-btn {
+            border: 1px solid #6e80e1;
+            color: #6e80e1;
+        }
+
+        .latest-chapters {
+            margin-bottom: 20px;
+        }
+
+        .chapter-item {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .chapter-title {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .chapter-meta {
+            font-size: 12px;
+            color: #8a8a8a;
+        }
+
+        .all-chapters {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 0;
+            font-size: 14px;
+            color: #6e80e1;
+        }
+
+        .all-chapters i {
+            margin-left: 5px;
+        }
+
+        .related-books-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .related-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .more-related {
+            font-size: 13px;
+            color: #6e80e1;
+        }
+
+        .related-list {
+            display: flex;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            scrollbar-width: none;
+        }
+
+        .related-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 章节目录页面样式 */
+        .chapters-page {
+            background: linear-gradient(145deg, #f8f9fc, #ffffff);
+            height: 100%;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .chapters-header {
+            display: flex;
+            align-items: center;
+            padding-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .chapters-back {
+            width: 36px;
+            height: 36px;
+            border-radius: 18px;
+            background-color: rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #333;
+            font-size: 20px;
+        }
+
+        .chapters-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            flex-grow: 1;
+        }
+
+        .chapters-search {
+            width: 36px;
+            height: 36px;
+            border-radius: 18px;
+            background-color: rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .chapters-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chapters-book-cover {
+            width: 60px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+        .chapters-book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .chapters-book-info {
+            flex-grow: 1;
+        }
+
+        .chapters-book-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .chapters-book-meta {
+            font-size: 13px;
+            color: #8a8a8a;
+        }
+
+        .chapter-sort {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            margin-bottom: 15px;
+        }
+
+        .sort-option {
+            font-size: 13px;
+            color: #8a8a8a;
+            display: flex;
+            align-items: center;
+        }
+
+        .sort-option.active {
+            color: #6e80e1;
+            font-weight: 500;
+        }
+
+        .sort-option i {
+            margin-left: 5px;
+        }
+
+        .chapters-list {
+            margin-bottom: 30px;
+        }
+
+        .chapter-list-item {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chapter-list-title {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .chapter-list-info {
+            font-size: 12px;
+            color: #8a8a8a;
+            display: flex;
+            align-items: center;
+        }
+
+        .chapter-tag {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+
+        .chapter-tag.free {
+            background-color: rgba(110, 128, 225, 0.1);
+            color: #6e80e1;
+        }
+
+        .chapter-tag.locked {
+            background-color: rgba(255, 180, 0, 0.1);
+            color: #ffb400;
+        }
+
+        .chapter-tag.read {
+            background-color: rgba(120, 120, 120, 0.1);
+            color: #787878;
+        }
+
+        /* 阅读页面样式 */
+        .reading-page {
+            background-color: #f8f9fa;
+            height: 100%;
+            position: relative;
+        }
+
+        .reading-top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+        }
+
+        .reading-back {
+            width: 36px;
+            height: 36px;
+            border-radius: 18px;
+            background-color: rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-size: 20px;
+        }
+
+        .reading-chapter-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            text-align: center;
+            flex-grow: 1;
+            margin: 0 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .reading-menu {
+            width: 36px;
+            height: 36px;
+            border-radius: 18px;
+            background-color: rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-size: 20px;
+        }
+
+        .reading-content {
+            padding: 80px 20px 120px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .reading-content p {
+            margin-bottom: 18px;
+            text-indent: 2em;
+        }
+
+        .reading-bottom-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+        }
+
+        .chapter-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chapter-prev, .chapter-next {
+            width: 80px;
+            height: 36px;
+            border-radius: 18px;
+            background-color: rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-size: 14px;
+            margin: 0 10px;
+        }
+
+        .chapter-list-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 18px;
+            background-color: rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-size: 20px;
+            margin: 0 10px;
+        }
+
+        .reading-settings {
+            position: absolute;
+            bottom: 60px;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            z-index: 5;
+        }
+
+        .settings-section {
+            margin-bottom: 20px;
+        }
+
+        .settings-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .font-size-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .font-size-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 18px;
+            background-color: rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .font-size-value {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .theme-options {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .theme-option {
+            width: 60px;
+            height: 36px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            overflow: hidden;
+        }
+
+        .theme-option.active {
+            border-color: #6e80e1;
+        }
+
+        .theme-white {
+            background-color: #ffffff;
+        }
+
+        .theme-sepia {
+            background-color: #f5efe0;
+        }
+
+        .theme-gray {
+            background-color: #e6e6e6;
+        }
+
+        .theme-dark {
+            background-color: #333333;
+        }
+
+        .theme-black {
+            background-color: #000000;
+        }
+
+        /* 我的书架页面样式 */
+        .bookshelf-page {
+            background: linear-gradient(145deg, #f8f9fc, #ffffff);
+            height: 100%;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .bookshelf-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .bookshelf-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .edit-bookshelf {
+            font-size: 14px;
+            color: #6e80e1;
+        }
+
+        .shelf-tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .shelf-tab {
+            padding: 12px 0;
+            margin-right: 25px;
+            font-size: 15px;
+            color: #8a8a8a;
+            position: relative;
+        }
+
+        .shelf-tab.active {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .shelf-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #6e80e1;
+            border-radius: 1.5px;
+        }
+
+        .bookshelf-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .shelf-book {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .shelf-book-cover {
+            width: 100%;
+            height: 140px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 8px;
+        }
+
+        .shelf-book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .shelf-book-title {
+            font-size: 12px;
+            font-weight: 500;
+            color: #333;
+            text-align: center;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .shelf-no-books {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 0;
+        }
+
+        .empty-shelf-icon {
+            font-size: 60px;
+            color: #e0e0e0;
+            margin-bottom: 15px;
+        }
+
+        .empty-shelf-text {
+            font-size: 14px;
+            color: #8a8a8a;
+            margin-bottom: 25px;
+        }
+
+        .add-to-shelf {
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #6e80e1, #4e64e7);
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .reading-history-item {
+            display: flex;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .history-book-cover {
+            width: 70px;
+            height: 100px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .history-book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .history-book-info {
+            flex-grow: 1;
+        }
+
+        .history-book-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .history-book-author {
+            font-size: 13px;
+            color: #8a8a8a;
+            margin-bottom: 10px;
+        }
+
+        .reading-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .progress-info {
+            font-size: 12px;
+            color: #8a8a8a;
+        }
+
+        .continue-reading {
+            padding: 5px 12px;
+            background-color: rgba(110, 128, 225, 0.1);
+            color: #6e80e1;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-value {
+            height: 100%;
+            background: linear-gradient(to right, #6e80e1, #4e64e7);
+            border-radius: 2px;
+            width: 35%;
+        }
+
+        /* 个人中心页面样式 */
+        .profile-page {
+            background: linear-gradient(145deg, #f8f9fc, #ffffff);
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .profile-header {
+            height: 180px;
+            background: linear-gradient(135deg, #6e80e1, #4e64e7);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding-top: 30px;
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background-color: white;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 40px;
+            background-color: white;
+            overflow: hidden;
+            margin-bottom: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-name {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-info {
+            font-size: 14px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-body {
+            padding: 15px 20px;
+        }
+
+        .profile-section {
+            margin-bottom: 25px;
+        }
+
+        .profile-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .menu-list {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 18px;
+            background-color: rgba(110, 128, 225, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #6e80e1;
+            font-size: 18px;
+        }
+
+        .menu-label {
+            font-size: 15px;
+            color: #333;
+            flex-grow: 1;
+        }
+
+        .menu-arrow {
+            color: #c0c0c0;
+            font-size: 16px;
+        }
+
+        .settings-item {
+            padding: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+        
+        .settings-item-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .setting-name {
+            font-size: 15px;
+            color: #333;
+        }
+
+        .setting-value {
+            font-size: 14px;
+            color: #8a8a8a;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 44px;
+            background-color: white;
+            color: #ff5252;
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+</head>
+<body>
+    <h1>男同性恋小说小程序 UI设计</h1>
+    <div class="ui-container">
+        <!-- 首页（发现页） -->
+        <div>
+            <div class="phone-title">首页（发现页）</div>
+            <div class="phone-frame">
+                <div class="phone-content">
+                    <div class="capsule-button"></div>
+                    <div class="home-page">
+                        <div class="search-bar">
+                            <i class="fas fa-search">🔍</i>
+                            <input type="text" placeholder="搜索你感兴趣的小说">
+                        </div>
+                        
+                        <div class="banner">
+                            <img src="https://images.unsplash.com/photo-1505682634904-d7c8d95cdc50?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="新书推荐">
+                        </div>
+                        
+                        <div class="section-title">
+                            智能推荐 <span class="see-all">查看全部</span>
+                        </div>
+                        <div class="recommend-list">
+                            <div class="book-card">
+                                <div class="book-cover">
+                                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="book-title">星辰大海</div>
+                                <div class="book-author">林若晨</div>
+                            </div>
+                            <div class="book-card">
+                                <div class="book-cover">
+                                    <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="book-title">青春如歌</div>
+                                <div class="book-author">夏日长</div>
+                            </div>
+                            <div class="book-card">
+                                <div class="book-cover">
+                                    <img src="https://images.unsplash.com/photo-1531072901881-d644216d4bf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="book-title">命运交织</div>
+                                <div class="book-author">何以笙</div>
+                            </div>
+                            <div class="book-card">
+                                <div class="book-cover">
+                                    <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="book-title">心的旅程</div>
+                                <div class="book-author">李明轩</div>
+                            </div>
+                        </div>
+                        
+                        <div class="section-title">
+                            分类浏览
+                        </div>
+                        <div class="category-grid">
+                            <div class="category-item">
+                                <div class="category-icon">
+                                    <i>📚</i>
+                                </div>
+                                <div class="category-name">现代都市</div>
+                            </div>
+                            <div class="category-item">
+                                <div class="category-icon">
+                                    <i>🏰</i>
+                                </div>
+                                <div class="category-name">古代架空</div>
+                            </div>
+                            <div class="category-item">
+                                <div class="category-icon">
+                                    <i>🔮</i>
+                                </div>
+                                <div class="category-name">玄幻奇幻</div>
+                            </div>
+                            <div class="category-item">
+                                <div class="category-icon">
+                                    <i>🚀</i>
+                                </div>
+                                <div class="category-name">科幻未来</div>
+                            </div>
+                        </div>
+                        
+                        <div class="section-title">
+                            热门排行 <span class="see-all">查看全部</span>
+                        </div>
+                        <div class="hot-list">
+                            <div class="hot-item">
+                                <div class="hot-rank top">1</div>
+                                <div class="hot-info">
+                                    <div class="book-title">破晓之光</div>
+                                    <div class="hot-meta">
+                                        <span><i>👁️</i> 12.5万</span>
+                                        <span><i>⭐</i> 4.9</span>
+                                        <span>都市 / 完结</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hot-item">
+                                <div class="hot-rank top">2</div>
+                                <div class="hot-info">
+                                    <div class="book-title">逆光之恋</div>
+                                    <div class="hot-meta">
+                                        <span><i>👁️</i> 10.2万</span>
+                                        <span><i>⭐</i> 4.8</span>
+                                        <span>现代 / 连载</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hot-item">
+                                <div class="hot-rank top">3</div>
+                                <div class="hot-info">
+                                    <div class="book-title">星河涟漪</div>
+                                    <div class="hot-meta">
+                                        <span><i>👁️</i> 9.8万</span>
+                                        <span><i>⭐</i> 4.7</span>
+                                        <span>科幻 / 连载</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hot-item">
+                                <div class="hot-rank">4</div>
+                                <div class="hot-info">
+                                    <div class="book-title">归途如梦</div>
+                                    <div class="hot-meta">
+                                        <span><i>👁️</i> 8.5万</span>
+                                        <span><i>⭐</i> 4.6</span>
+                                        <span>古代 / 完结</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="section-title">
+                            新书上架 <span class="see-all">查看全部</span>
+                        </div>
+                        <div class="recommend-list">
+                            <div class="book-card">
+                                <div class="book-cover">
+                                    <img src="https://images.unsplash.com/photo-1510172951991-856a654063f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="book-title">春风十里</div>
+                                <div class="book-author">周小天</div>
+                            </div>
+                            <div class="book-card">
+                                <div class="book-cover">
+                                    <img src="https://images.unsplash.com/photo-1518744386442-2d48ac55549f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="book-title">时光倒流</div>
+                                <div class="book-author">林小北</div>
+                            </div>
+                            <div class="book-card">
+                                <div class="book-cover">
+                                    <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="book-title">未来可期</div>
+                                <div class="book-author">陈子轩</div>
+                            </div>
+                            <div class="book-card">
+                                <div class="book-cover">
+                                    <img src="https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="book-title">心之所向</div>
+                                <div class="book-author">杨雨晴</div>
+                            </div>
+                        </div>
+                        
+                        <div style="height: 70px;"></div> <!-- 底部空间，避免被Tab Bar遮挡 -->
+                    </div>
+                    
+                    <div class="tab-bar">
+                        <div class="tab-item active">
+                            <div class="tab-icon">🏠</div>
+                            <div class="tab-name">发现</div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-icon">📚</div>
+                            <div class="tab-name">分类</div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-icon">📖</div>
+                            <div class="tab-name">书架</div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-icon">👤</div>
+                            <div class="tab-name">我的</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 小说分类页面 -->
+        <div>
+            <div class="phone-title">小说分类页面</div>
+            <div class="phone-frame">
+                <div class="phone-content">
+                    <div class="capsule-button"></div>
+                    <div class="category-page">
+                        <div class="page-header">
+                            <div class="page-title">分类</div>
+                        </div>
+                        
+                        <div class="filter-bar">
+                            <div class="filter-item active">全部</div>
+                            <div class="filter-item">现代都市</div>
+                            <div class="filter-item">古代架空</div>
+                            <div class="filter-item">玄幻奇幻</div>
+                            <div class="filter-item">科幻未来</div>
+                            <div class="filter-item">悬疑推理</div>
+                            <div class="filter-item">校园青春</div>
+                        </div>
+                        
+                        <div class="sub-filter">
+                            <div class="sub-filter-item active">人气</div>
+                            <div class="sub-filter-item">评分</div>
+                            <div class="sub-filter-item">收藏</div>
+                            <div class="sub-filter-item">新书</div>
+                            <div class="sub-filter-item">完结</div>
+                            <div class="sub-filter-item">连载</div>
+                        </div>
+                        
+                        <div class="category-list">
+                            <div class="category-book">
+                                <div class="category-book-cover">
+                                    <img src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="book-title">校园奇缘</div>
+                                <div class="book-author">沈月光</div>
+                                <div>
+                                    <span class="category-tag">校园</span>
+                                    <span class="category-tag">完结</span>
+                                </div>
+                            </div>
+                            <div class="category-book">
+                                <div class="category-book-cover">
+                                    <img src="https://images.unsplash.com/photo-1503830232156-181a48490465?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="book-title">都市迷情</div>
+                                <div class="book-author">张时雨</div>
+                                <div>
+                                    <span class="category-tag">都市</span>
+                                    <span class="category-tag">热门</span>
+                                </div>
+                            </div>
+                            <div class="category-book">
+                                <div class="category-book-cover">
+                                    <img src="https://images.unsplash.com/photo-1529473814998-077b4fec6770?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="book-title">古代密探</div>
+                                <div class="book-author">李云天</div>
+                                <div>
+                                    <span class="category-tag">古代</span>
+                                    <span class="category-tag">悬疑</span>
+                                </div>
+                            </div>
+                            <div class="category-book">
+                                <div class="category-book-cover">
+                                    <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="book-title">星际迷航</div>
+                                <div class="book-author">黄河清</div>
+                                <div>
+                                    <span class="category-tag">科幻</span>
+                                    <span class="category-tag">连载</span>
+                                </div>
+                            </div>
+                            <div class="category-book">
+                                <div class="category-book-cover">
+                                    <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="book-title">异世界冒险</div>
+                                <div class="book-author">赵明志</div>
+                                <div>
+                                    <span class="category-tag">奇幻</span>
+                                    <span class="category-tag">冒险</span>
+                                </div>
+                            </div>
+                            <div class="category-book">
+                                <div class="category-book-cover">
+                                    <img src="https://images.unsplash.com/photo-1531301677377-f5549c6e5227?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="book-title">心灵密码</div>
+                                <div class="book-author">陈慕容</div>
+                                <div>
+                                    <span class="category-tag">悬疑</span>
+                                    <span class="category-tag">推理</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="height: 70px;"></div> <!-- 底部空间，避免被Tab Bar遮挡 -->
+                    </div>
+                    
+                    <div class="tab-bar">
+                        <div class="tab-item">
+                            <div class="tab-icon">🏠</div>
+                            <div class="tab-name">发现</div>
+                        </div>
+                        <div class="tab-item active">
+                            <div class="tab-icon">📚</div>
+                            <div class="tab-name">分类</div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-icon">📖</div>
+                            <div class="tab-name">书架</div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-icon">👤</div>
+                            <div class="tab-name">我的</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 搜索页面 -->
+        <div>
+            <div class="phone-title">搜索页面</div>
+            <div class="phone-frame">
+                <div class="phone-content">
+                    <div class="capsule-button"></div>
+                    <div class="search-page">
+                        <div class="search-header">
+                            <div class="search-input-container">
+                                <i class="fas fa-search">🔍</i>
+                                <input type="text" placeholder="搜索小说或作者" class="search-input" value="春风十里">
+                            </div>
+                            <div class="cancel-btn">取消</div>
+                        </div>
+                        
+                        <div class="search-results">
+                            <div class="result-meta">共找到 24 本相关小说</div>
+                            
+                            <div class="result-item">
+                                <div class="result-cover">
+                                    <img src="https://images.unsplash.com/photo-1510172951991-856a654063f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="result-info">
+                                    <div class="result-title">春风十里</div>
+                                    <div class="result-author">周小天</div>
+                                    <div class="result-description">这是一个关于都市青年在职场和爱情中寻找自我的故事，讲述了主角如何在挫折中成长...</div>
+                                    <div class="result-meta-info">
+                                        <span><i>👁️</i> 3.5万</span>
+                                        <span><i>⭐</i> 4.6</span>
+                                        <span>都市 / 连载</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-cover">
+                                    <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="result-info">
+                                    <div class="result-title">春风不如你</div>
+                                    <div class="result-author">李青禾</div>
+                                    <div class="result-description">一段从青梅竹马到分离再到重逢的感人爱情故事，探讨了成长、分离与重聚的意义...</div>
+                                    <div class="result-meta-info">
+                                        <span><i>👁️</i> 2.8万</span>
+                                        <span><i>⭐</i> 4.5</span>
+                                        <span>现代 / 完结</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-cover">
+                                    <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="result-info">
+                                    <div class="result-title">春风得意</div>
+                                    <div class="result-author">何清风</div>
+                                    <div class="result-description">讲述了一个年轻画家从默默无闻到声名鹊起的故事，以及他在成名过程中面临的诱惑与挑战...</div>
+                                    <div class="result-meta-info">
+                                        <span><i>👁️</i> 1.9万</span>
+                                        <span><i>⭐</i> 4.3</span>
+                                        <span>都市 / 完结</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-cover">
+                                    <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="result-info">
+                                    <div class="result-title">春风化雨</div>
+                                    <div class="result-author">张天明</div>
+                                    <div class="result-description">一个年轻教师在贫困山区支教的感人故事，展现了教育对改变命运的重要作用...</div>
+                                    <div class="result-meta-info">
+                                        <span><i>👁️</i> 1.5万</span>
+                                        <span><i>⭐</i> 4.7</span>
+                                        <span>校园 / 连载</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 另一个搜索页面状态 - 未输入关键词 -->
+        <div>
+            <div class="phone-title">搜索页面 - 初始状态</div>
+            <div class="phone-frame">
+                <div class="phone-content">
+                    <div class="capsule-button"></div>
+                    <div class="search-page">
+                        <div class="search-header">
+                            <div class="search-input-container">
+                                <i class="fas fa-search">🔍</i>
+                                <input type="text" placeholder="搜索小说或作者" class="search-input">
+                            </div>
+                            <div class="cancel-btn">取消</div>
+                        </div>
+                        
+                        <div class="search-history">
+                            <div class="history-header">
+                                <div class="history-title">搜索历史</div>
+                                <div class="clear-history">清空</div>
+                            </div>
+                            <div class="history-list">
+                                <div class="history-item">校园奇缘</div>
+                                <div class="history-item">都市情感</div>
+                                <div class="history-item">古代密探</div>
+                                <div class="history-item">命运交织</div>
+                                <div class="history-item">心的旅程</div>
+                            </div>
+                        </div>
+                        
+                        <div class="search-hot">
+                            <div class="history-header">
+                                <div class="history-title">热门搜索</div>
+                            </div>
+                            <div class="hot-searches">
+                                <div class="hot-search-item">
+                                    <div class="hot-number top">1</div>
+                                    <div class="hot-keyword">破晓之光</div>
+                                </div>
+                                <div class="hot-search-item">
+                                    <div class="hot-number top">2</div>
+                                    <div class="hot-keyword">逆光之恋</div>
+                                </div>
+                                <div class="hot-search-item">
+                                    <div class="hot-number top">3</div>
+                                    <div class="hot-keyword">星河涟漪</div>
+                                </div>
+                                <div class="hot-search-item">
+                                    <div class="hot-number">4</div>
+                                    <div class="hot-keyword">归途如梦</div>
+                                </div>
+                                <div class="hot-search-item">
+                                    <div class="hot-number">5</div>
+                                    <div class="hot-keyword">李云天</div>
+                                </div>
+                                <div class="hot-search-item">
+                                    <div class="hot-number">6</div>
+                                    <div class="hot-keyword">校园爱情</div>
+                                </div>
+                                <div class="hot-search-item">
+                                    <div class="hot-number">7</div>
+                                    <div class="hot-keyword">都市迷情</div>
+                                </div>
+                                <div class="hot-search-item">
+                                    <div class="hot-number">8</div>
+                                    <div class="hot-keyword">沈月光</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 小说详情页 -->
+        <div>
+            <div class="phone-title">小说详情页</div>
+            <div class="phone-frame">
+                <div class="phone-content">
+                    <div class="capsule-button"></div>
+                    <div class="detail-page">
+                        <div class="detail-header">
+                            <div class="header-bg" style="background-image: url('https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                            <div class="back-btn">←</div>
+                            <div class="book-info">
+                                <div class="detail-cover">
+                                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="detail-info">
+                                    <div class="detail-title">星辰大海</div>
+                                    <div class="detail-author">林若晨</div>
+                                    <div class="detail-stats">
+                                        <div class="stat-item"><i>👁️</i> 15.8万</div>
+                                        <div class="stat-item"><i>⭐</i> 4.8</div>
+                                        <div class="stat-item"><i>📃</i> 158章</div>
+                                    </div>
+                                    <div class="detail-tags">
+                                        <div class="detail-tag">现代都市</div>
+                                        <div class="detail-tag">职场</div>
+                                        <div class="detail-tag">励志</div>
+                                        <div class="detail-tag">完结</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-body">
+                            <div class="detail-section">
+                                <div class="detail-section-title">简介</div>
+                                <div class="book-desc">
+                                    《星辰大海》讲述了一个不被看好的年轻人，如何在职场中逆风崛起，最终成功的故事。主角林星辰从一个普通职员开始，面对重重挑战与困难，依靠自己的坚持和才华，一步一步走向成功的顶峰。
+                                    <br><br>
+                                    在这个过程中，他不仅要面对工作上的挑战，还要处理复杂的人际关系，以及自己内心深处的迷茫与动摇...
+                                </div>
+                                <div class="read-more">展开更多</div>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <div class="action-btn read-btn">开始阅读</div>
+                                <div class="action-btn shelf-btn">加入书架</div>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <div class="detail-section-title">最新章节</div>
+                                <div class="latest-chapters">
+                                    <div class="chapter-item">
+                                        <div class="chapter-title">第156章 命运的转折</div>
+                                        <div class="chapter-meta">2天前更新</div>
+                                    </div>
+                                    <div class="chapter-item">
+                                        <div class="chapter-title">第157章 最终的抉择</div>
+                                        <div class="chapter-meta">昨天更新</div>
+                                    </div>
+                                    <div class="chapter-item">
+                                        <div class="chapter-title">第158章 星辰大海（完结篇）</div>
+                                        <div class="chapter-meta">3小时前更新</div>
+                                    </div>
+                                </div>
+                                <div class="all-chapters">
+                                    查看全部章节 <i>→</i>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <div class="related-books-title">
+                                    <div class="related-title">相关推荐</div>
+                                    <div class="more-related">更多</div>
+                                </div>
+                                <div class="related-list">
+                                    <div class="book-card">
+                                        <div class="book-cover">
+                                            <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                        </div>
+                                        <div class="book-title">青春如歌</div>
+                                        <div class="book-author">夏日长</div>
+                                    </div>
+                                    <div class="book-card">
+                                        <div class="book-cover">
+                                            <img src="https://images.unsplash.com/photo-1531072901881-d644216d4bf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                        </div>
+                                        <div class="book-title">命运交织</div>
+                                        <div class="book-author">何以笙</div>
+                                    </div>
+                                    <div class="book-card">
+                                        <div class="book-cover">
+                                            <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                        </div>
+                                        <div class="book-title">心的旅程</div>
+                                        <div class="book-author">李明轩</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 章节目录页面 -->
+        <div>
+            <div class="phone-title">章节目录页面</div>
+            <div class="phone-frame">
+                <div class="phone-content">
+                    <div class="capsule-button"></div>
+                    <div class="chapters-page">
+                        <div class="chapters-header">
+                            <div class="chapters-back">←</div>
+                            <div class="chapters-title">章节目录</div>
+                            <div class="chapters-search">🔍</div>
+                        </div>
+                        
+                        <div class="chapters-info">
+                            <div class="chapters-book-cover">
+                                <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                            </div>
+                            <div class="chapters-book-info">
+                                <div class="chapters-book-title">星辰大海</div>
+                                <div class="chapters-book-meta">林若晨 · 共158章 · 已完结</div>
+                            </div>
+                        </div>
+                        
+                        <div class="chapter-sort">
+                            <div class="sort-option active">正序 <i>↓</i></div>
+                            <div class="sort-option">倒序 <i>↑</i></div>
+                        </div>
+                        
+                        <div class="chapters-list">
+                            <div class="chapter-list-item">
+                                <div class="chapter-list-title">第1章 初入职场</div>
+                                <div class="chapter-list-info">
+                                    <span class="chapter-tag read">已读</span>
+                                </div>
+                            </div>
+                            <div class="chapter-list-item">
+                                <div class="chapter-list-title">第2章 新的开始</div>
+                                <div class="chapter-list-info">
+                                    <span class="chapter-tag read">已读</span>
+                                </div>
+                            </div>
+                            <div class="chapter-list-item">
+                                <div class="chapter-list-title">第3章 意外的机会</div>
+                                <div class="chapter-list-info">
+                                    <span class="chapter-tag read">已读</span>
+                                </div>
+                            </div>
+                            <div class="chapter-list-item">
+                                <div class="chapter-list-title">第4章 成长的痛</div>
+                                <div class="chapter-list-info">
+                                    <span class="chapter-tag free">免费</span>
+                                </div>
+                            </div>
+                            <div class="chapter-list-item">
+                                <div class="chapter-list-title">第5章 挫折与反思</div>
+                                <div class="chapter-list-info">
+                                    <span class="chapter-tag free">免费</span>
+                                </div>
+                            </div>
+                            <div class="chapter-list-item">
+                                <div class="chapter-list-title">第6章 意外的惊喜</div>
+                                <div class="chapter-list-info">
+                                    <span class="chapter-tag free">免费</span>
+                                </div>
+                            </div>
+                            <div class="chapter-list-item">
+                                <div class="chapter-list-title">第7章 突破自我</div>
+                                <div class="chapter-list-info">
+                                    <span class="chapter-tag free">免费</span>
+                                </div>
+                            </div>
+                            <div class="chapter-list-item">
+                                <div class="chapter-list-title">第8章 困境中前行</div>
+                                <div class="chapter-list-info">
+                                    <span class="chapter-tag locked">付费</span>
+                                </div>
+                            </div>
+                            <div class="chapter-list-item">
+                                <div class="chapter-list-title">第9章 转机与希望</div>
+                                <div class="chapter-list-info">
+                                    <span class="chapter-tag locked">付费</span>
+                                </div>
+                            </div>
+                            <div class="chapter-list-item">
+                                <div class="chapter-list-title">第10章 命运的交汇</div>
+                                <div class="chapter-list-info">
+                                    <span class="chapter-tag locked">付费</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 阅读页面 -->
+        <div>
+            <div class="phone-title">阅读页面</div>
+            <div class="phone-frame">
+                <div class="phone-content">
+                    <div class="capsule-button"></div>
+                    <div class="reading-page">
+                        <div class="reading-top-bar">
+                            <div class="reading-back">←</div>
+                            <div class="reading-chapter-title">第3章 意外的机会</div>
+                            <div class="reading-menu">⋮</div>
+                        </div>
+                        
+                        <div class="reading-content">
+                            <p>第3章 意外的机会</p>
+                            <p>星辰推开办公室的门，发现部门经理李明正在等他。</p>
+                            <p>"星辰，坐吧。"李明指了指对面的椅子，面带微笑地说。</p>
+                            <p>星辰有些紧张，他不知道主管为什么单独找他谈话。短短一个月的实习期，他一直兢兢业业，没有出过什么差错。</p>
+                            <p>"别紧张，"李明似乎看出了他的忐忑，"我今天找你是有个好消息要告诉你。"</p>
+                            <p>星辰稍稍松了口气，却仍然不敢掉以轻心。</p>
+                            <p>"你知道我们公司下个月要承接的那个大项目吗？"李明问道。</p>
+                            <p>星辰点点头。那个项目是公司近年来接到的最大订单，几乎全公司上下都知道这件事。</p>
+                            <p>"我想让你加入这个项目组。"李明的话让星辰一时间有些难以置信。</p>
+                            <p>"可是……我只是个实习生，"星辰有些困惑，"我的经验和能力可能……"</p>
+                            <p>"没关系，"李明打断了他，"我看过你提交的那几份报告，很有想法。这个项目需要一些新鲜的思维和创意，我认为你很适合。"</p>
+                            <p>星辰一时不知道该说什么，他没想到自己做的那些工作竟然被部门经理注意到了。</p>
+                            <p>"当然，这会很辛苦，"李明继续说道，"你可能需要加班，甚至周末也要工作，但这绝对是一个难得的机会，对你的职业发展会有很大帮助。你愿意接受挑战吗？"</p>
+                            <p>星辰深吸了一口气，毫不犹豫地点了点头："我愿意，谢谢您给我这个机会。"</p>
+                            <p>李明满意地笑了："很好，明天上午十点，项目组第一次会议，不要迟到。"</p>
+                            <p>离开办公室后，星辰的心情久久不能平静。他知道，这个机会来之不易，自己必须全力以赴，不能辜负李明的期望。</p>
+                            <p>回到工位，他立刻开始查阅相关资料，准备明天的会议。他知道，真正的挑战才刚刚开始……</p>
+                        </div>
+                        
+                        <div class="reading-bottom-bar">
+                            <div class="chapter-prev">上一章</div>
+                            <div class="chapter-list-btn">≡</div>
+                            <div class="chapter-next">下一章</div>
+                        </div>
+                        
+                        <div class="reading-settings" style="display: none;">
+                            <div class="settings-section">
+                                <div class="settings-title">字体大小</div>
+                                <div class="font-size-control">
+                                    <div class="font-size-btn">A-</div>
+                                    <div class="font-size-value">16</div>
+                                    <div class="font-size-btn">A+</div>
+                                </div>
+                            </div>
+                            
+                            <div class="settings-section">
+                                <div class="settings-title">背景主题</div>
+                                <div class="theme-options">
+                                    <div class="theme-option theme-white active"></div>
+                                    <div class="theme-option theme-sepia"></div>
+                                    <div class="theme-option theme-gray"></div>
+                                    <div class="theme-option theme-dark"></div>
+                                    <div class="theme-option theme-black"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 我的书架页面 -->
+        <div>
+            <div class="phone-title">我的书架页面</div>
+            <div class="phone-frame">
+                <div class="phone-content">
+                    <div class="capsule-button"></div>
+                    <div class="bookshelf-page">
+                        <div class="bookshelf-header">
+                            <div class="bookshelf-title">我的书架</div>
+                            <div class="edit-bookshelf">编辑</div>
+                        </div>
+                        
+                        <div class="shelf-tabs">
+                            <div class="shelf-tab active">收藏</div>
+                            <div class="shelf-tab">下载</div>
+                            <div class="shelf-tab">历史</div>
+                        </div>
+                        
+                        <div class="bookshelf-list">
+                            <div class="shelf-book">
+                                <div class="shelf-book-cover">
+                                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="shelf-book-title">星辰大海</div>
+                            </div>
+                            <div class="shelf-book">
+                                <div class="shelf-book-cover">
+                                    <img src="https://images.unsplash.com/photo-1503830232156-181a48490465?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="shelf-book-title">都市迷情</div>
+                            </div>
+                            <div class="shelf-book">
+                                <div class="shelf-book-cover">
+                                    <img src="https://images.unsplash.com/photo-1531072901881-d644216d4bf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="shelf-book-title">命运交织</div>
+                            </div>
+                            <div class="shelf-book">
+                                <div class="shelf-book-cover">
+                                    <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="shelf-book-title">青春如歌</div>
+                            </div>
+                            <div class="shelf-book">
+                                <div class="shelf-book-cover">
+                                    <img src="https://images.unsplash.com/photo-1510172951991-856a654063f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                                </div>
+                                <div class="shelf-book-title">春风十里</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bookshelf-header">
+                            <div class="bookshelf-title">最近阅读</div>
+                            <div class="edit-bookshelf">更多</div>
+                        </div>
+                        
+                        <div class="reading-history-item">
+                            <div class="history-book-cover">
+                                <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                            </div>
+                            <div class="history-book-info">
+                                <div class="history-book-title">星辰大海</div>
+                                <div class="history-book-author">林若晨</div>
+                                <div class="reading-progress">
+                                    <div class="progress-info">进度：56/158章（35%）</div>
+                                    <div class="continue-reading">继续阅读</div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-value"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="reading-history-item">
+                            <div class="history-book-cover">
+                                <img src="https://images.unsplash.com/photo-1510172951991-856a654063f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="小说封面">
+                            </div>
+                            <div class="history-book-info">
+                                <div class="history-book-title">春风十里</div>
+                                <div class="history-book-author">周小天</div>
+                                <div class="reading-progress">
+                                    <div class="progress-info">进度：12/120章（10%）</div>
+                                    <div class="continue-reading">继续阅读</div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-value" style="width: 10%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="height: 70px;"></div> <!-- 底部空间，避免被Tab Bar遮挡 -->
+                    </div>
+                    
+                    <div class="tab-bar">
+                        <div class="tab-item">
+                            <div class="tab-icon">🏠</div>
+                            <div class="tab-name">发现</div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-icon">📚</div>
+                            <div class="tab-name">分类</div>
+                        </div>
+                        <div class="tab-item active">
+                            <div class="tab-icon">📖</div>
+                            <div class="tab-name">书架</div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-icon">👤</div>
+                            <div class="tab-name">我的</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 个人中心页面 -->
+        <div>
+            <div class="phone-title">个人中心页面</div>
+            <div class="phone-frame">
+                <div class="phone-content">
+                    <div class="capsule-button"></div>
+                    <div class="profile-page">
+                        <div class="profile-header">
+                            <div class="profile-avatar">
+                                <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="用户头像">
+                            </div>
+                            <div class="profile-name">林小北</div>
+                            <div class="profile-info">ID: 68729354</div>
+                        </div>
+                        
+                        <div class="profile-body">
+                            <div class="profile-section">
+                                <div class="profile-section-title">我的服务</div>
+                                <div class="menu-list">
+                                    <div class="menu-item">
+                                        <div class="menu-icon">📝</div>
+                                        <div class="menu-label">阅读记录</div>
+                                        <div class="menu-arrow">></div>
+                                    </div>
+                                    <div class="menu-item">
+                                        <div class="menu-icon">⭐</div>
+                                        <div class="menu-label">我的收藏</div>
+                                        <div class="menu-arrow">></div>
+                                    </div>
+                                    <div class="menu-item">
+                                        <div class="menu-icon">💖</div>
+                                        <div class="menu-label">阅读偏好</div>
+                                        <div class="menu-arrow">></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-section">
+                                <div class="profile-section-title">设置</div>
+                                <div class="menu-list">
+                                    <div class="settings-item">
+                                        <div class="settings-item-title">
+                                            <div class="setting-name">深色模式</div>
+                                            <div class="setting-value">跟随系统</div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-item">
+                                        <div class="settings-item-title">
+                                            <div class="setting-name">字体大小</div>
+                                            <div class="setting-value">中</div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-item">
+                                        <div class="settings-item-title">
+                                            <div class="setting-name">缓存管理</div>
+                                            <div class="setting-value">已使用 158MB</div>
+                                        </div>
+                                    </div>
+                                    <div class="settings-item">
+                                        <div class="settings-item-title">
+                                            <div class="setting-name">消息通知</div>
+                                            <div class="setting-value">已开启</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-section">
+                                <div class="menu-list">
+                                    <div class="menu-item">
+                                        <div class="menu-icon">❓</div>
+                                        <div class="menu-label">帮助与反馈</div>
+                                        <div class="menu-arrow">></div>
+                                    </div>
+                                    <div class="menu-item">
+                                        <div class="menu-icon">ℹ️</div>
+                                        <div class="menu-label">关于</div>
+                                        <div class="menu-arrow">></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="logout-btn">退出登录</div>
+                            
+                            <div style="height: 70px;"></div> <!-- 底部空间，避免被Tab Bar遮挡 -->
+                        </div>
+                    </div>
+                    
+                    <div class="tab-bar">
+                        <div class="tab-item">
+                            <div class="tab-icon">🏠</div>
+                            <div class="tab-name">发现</div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-icon">📚</div>
+                            <div class="tab-name">分类</div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-icon">📖</div>
+                            <div class="tab-name">书架</div>
+                        </div>
+                        <div class="tab-item active">
+                            <div class="tab-icon">👤</div>
+                            <div class="tab-name">我的</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 空书架状态 -->
+        <div>
+            <div class="phone-title">空书架状态</div>
+            <div class="phone-frame">
+                <div class="phone-content">
+                    <div class="capsule-button"></div>
+                    <div class="bookshelf-page">
+                        <div class="bookshelf-header">
+                            <div class="bookshelf-title">我的书架</div>
+                            <div class="edit-bookshelf">编辑</div>
+                        </div>
+                        
+                        <div class="shelf-tabs">
+                            <div class="shelf-tab active">收藏</div>
+                            <div class="shelf-tab">下载</div>
+                            <div class="shelf-tab">历史</div>
+                        </div>
+                        
+                        <div class="shelf-no-books">
+                            <div class="empty-shelf-icon">📚</div>
+                            <div class="empty-shelf-text">你的书架还是空的</div>
+                            <div class="add-to-shelf">去发现好书</div>
+                        </div>
+                        
+                        <div style="height: 70px;"></div> <!-- 底部空间，避免被Tab Bar遮挡 -->
+                    </div>
+                    
+                    <div class="tab-bar">
+                        <div class="tab-item">
+                            <div class="tab-icon">🏠</div>
+                            <div class="tab-name">发现</div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-icon">📚</div>
+                            <div class="tab-name">分类</div>
+                        </div>
+                        <div class="tab-item active">
+                            <div class="tab-icon">📖</div>
+                            <div class="tab-name">书架</div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-icon">👤</div>
+                            <div class="tab-name">我的</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,196 @@
+/* pages/category/category.wxss */
+.category-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5f6fa;
+}
+
+/* 左右布局容器 */
+.category-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* 左侧分类导航 */
+.category-sidebar {
+  width: 180rpx;
+  height: 100%;
+  background-color: #f0f3fc;
+  border-right: 1rpx solid #e0e3e9;
+}
+
+.category-scroll {
+  height: 100%;
+}
+
+.category-item {
+  padding: 30rpx 20rpx;
+  font-size: 28rpx;
+  color: #666;
+  text-align: center;
+  border-bottom: 1rpx solid #e0e3e9;
+  position: relative;
+}
+
+.category-item.active {
+  color: #6e80e1;
+  font-weight: 500;
+  background-color: #fff;
+}
+
+.category-item.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 36rpx;
+  background-color: #6e80e1;
+  border-radius: 0 3rpx 3rpx 0;
+}
+
+/* 右侧内容区 */
+.category-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 子筛选栏 */
+.sub-filter-bar {
+  display: flex;
+  white-space: nowrap;
+  background-color: #fff;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.sub-filter-item {
+  display: inline-block;
+  padding: 10rpx 20rpx;
+  margin-right: 20rpx;
+  font-size: 26rpx;
+  color: #666;
+  border-radius: 30rpx;
+}
+
+.sub-filter-item.active {
+  color: #fff;
+  background-color: #6e80e1;
+}
+
+/* 书籍列表滚动区 */
+.book-scroll {
+  flex: 1;
+  height: 0;
+}
+
+.category-list {
+  flex: 1;
+  padding: 10rpx 20rpx;
+}
+
+/* 空状态样式 */
+.empty-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 100rpx 0;
+  color: #999;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+}
+
+/* 加载中样式 */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40rpx 0;
+}
+
+.loading-spinner {
+  width: 60rpx;
+  height: 60rpx;
+  border: 4rpx solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #2b87ff;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 20rpx;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  font-size: 26rpx;
+  color: #666;
+}
+
+/* 加载更多的动画点 */
+.loading-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80rpx;
+  margin: 10rpx 0;
+}
+
+.loading-dot {
+  width: 12rpx;
+  height: 12rpx;
+  background-color: #2b87ff;
+  border-radius: 50%;
+  margin: 0 6rpx;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.loading-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.loading-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+/* 没有更多数据 */
+.no-more {
+  text-align: center;
+  color: #999;
+  font-size: 24rpx;
+  padding: 20rpx 0;
+}
+
+/* 底部安全区域 */
+.safe-bottom {
+  height: 20rpx;
+} 

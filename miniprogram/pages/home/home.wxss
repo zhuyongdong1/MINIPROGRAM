@@ -1,0 +1,51 @@
+/* pages/home/home.wxss */
+.home-page {
+  height: 100vh;
+  background: linear-gradient(145deg, #f8f9fc, #ffffff);
+  overflow-y: auto;
+  padding-top: 30rpx;
+}
+
+.section {
+  margin-bottom: 50rpx;
+}
+
+.banner-section {
+  margin-top: 30rpx;
+  margin-bottom: 50rpx;
+}
+
+/* 加载中样式 */
+.loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 999;
+}
+
+.loading-spinner {
+  width: 80rpx;
+  height: 80rpx;
+  border: 6rpx solid rgba(110, 128, 225, 0.2);
+  border-top: 6rpx solid #6e80e1;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20rpx;
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #6e80e1;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} 

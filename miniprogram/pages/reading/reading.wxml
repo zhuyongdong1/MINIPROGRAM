@@ -1,0 +1,115 @@
+<!-- pages/reading/reading.wxml -->
+<!-- 顶部返回栏（只在菜单打开时显示） -->
+<view class="top-bar" wx:if="{{!loading && showMenu}}">
+  <view class="back-button" bindtap="onTapBack">←</view>
+</view>
+
+
+<view class="reading-page theme-{{theme}}">
+  <!-- 顶部阅读进度信息（仅在菜单打开时显示） -->
+  
+  
+  <!-- 加载中 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <view class="loading-text">加载中...</view>
+  </view>
+  
+  <!-- 阅读区域 -->
+  <view class="reading-container" bindtap="toggleMenu" wx:if="{{!loading && chapterContent}}">
+    <view class="chapter-header">
+      <view class="chapter-title-text">{{chapterInfo.title}}</view>
+      <view class="chapter-meta">
+        <text class="word-count">{{chapterInfo.wordCount}}字</text>
+        <text class="update-time">更新于{{chapterInfo.updateTime}}</text>
+      </view>
+    </view>
+    
+    <view class="chapter-content" style="font-size: {{fontSize}}rpx; line-height: {{lineHeight}};">
+      <text>{{chapterContent}}</text>
+    </view>
+    
+    <view class="chapter-navigation">
+      <view class="nav-button prev" bindtap="prevChapter">上一章</view>
+      <view class="nav-button next" bindtap="nextChapter">下一章</view>
+    </view>
+  </view>
+  
+  <!-- 顶部菜单栏 -->
+  
+  
+  <!-- 底部菜单栏 -->
+  <view class="bottom-menu {{showMenu ? 'show' : ''}}" wx:if="{{!loading}}">
+    <view class="menu-button" bindtap="prevChapter">上一章</view>
+    <view class="menu-button" bindtap="toggleChapterList">目录</view>
+    <view class="menu-button" bindtap="toggleSettings">设置</view>
+    <view class="menu-button" bindtap="nextChapter">下一章</view>
+  </view>
+  
+  <!-- 章节列表弹窗 -->
+  <view class="chapter-list-modal {{showChapterList ? 'show' : ''}}" wx:if="{{!loading}}">
+    <view class="modal-mask" bindtap="toggleChapterList"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <view class="modal-title">目录</view>
+        <view class="modal-close" bindtap="toggleChapterList">×</view>
+      </view>
+      <scroll-view class="chapter-scroll" scroll-y>
+        <view class="chapter-list-item {{chapter.id === chapterId ? 'active' : ''}}" 
+              wx:for="{{chapterList}}" 
+              wx:key="id" 
+              wx:for-item="chapter" 
+              data-id="{{chapter.id}}" 
+              bindtap="onTapChapter">
+          <text class="item-title">{{chapter.title}}</text>
+          <text class="current-mark" wx:if="{{chapter.id === chapterId}}">当前</text>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+  
+  <!-- 设置弹窗 -->
+  <view class="settings-modal {{showSettings ? 'show' : ''}}" wx:if="{{!loading}}">
+    <view class="modal-mask" bindtap="toggleSettings"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <view class="modal-title">阅读设置</view>
+        <view class="modal-close" bindtap="toggleSettings">×</view>
+      </view>
+      <view class="settings-content">
+        <view class="setting-group">
+          <view class="setting-label">字体大小</view>
+          <view class="setting-controls">
+            <view class="control-button" data-type="decrease" bindtap="changeFontSize">A-</view>
+            <view class="control-value">{{fontSize}}px</view>
+            <view class="control-button" data-type="increase" bindtap="changeFontSize">A+</view>
+          </view>
+        </view>
+        
+        <view class="setting-group">
+          <view class="setting-label">行间距</view>
+          <view class="setting-controls">
+            <view class="control-button" data-type="decrease" bindtap="changeLineHeight">-</view>
+            <view class="control-value">{{lineHeight}}</view>
+            <view class="control-button" data-type="increase" bindtap="changeLineHeight">+</view>
+          </view>
+        </view>
+        
+        <view class="setting-group">
+          <view class="setting-label">主题</view>
+          <view class="theme-list">
+            <view class="theme-item {{theme === item.id ? 'active' : ''}}" 
+                  wx:for="{{themes}}" 
+                  wx:key="id" 
+                  data-theme="{{item.id}}" 
+                  bindtap="changeTheme"
+                  style="background-color: {{item.bg}}; color: {{item.color}};">
+              {{item.name}}
+              <view class="theme-check" wx:if="{{theme === item.id}}">✓</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

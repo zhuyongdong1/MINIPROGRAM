@@ -1,0 +1,22 @@
+<!-- components/category-grid/category-grid.wxml -->
+<view class="category-grid-container">
+  <view class="section-title" wx:if="{{title}}">
+    <view class="title">{{title}}</view>
+    <view class="see-all" wx:if="{{showMore}}" bindtap="onTapMore">{{moreText}}</view>
+  </view>
+
+  <view class="category-grid" style="grid-template-columns: repeat({{columnCount}}, 1fr);">
+    <view 
+      class="category-item" 
+      wx:for="{{categories}}" 
+      wx:key="id" 
+      bindtap="onTapCategory" 
+      data-index="{{index}}"
+    >
+      <view class="category-icon-wrapper" style="background: {{item.bgColor || 'linear-gradient(135deg, #6e80e1, #4e64e7)'}}">
+        <view class="category-icon">{{item.icon || '📚'}}</view>
+      </view>
+      <view class="category-name">{{item.name}}</view>
+    </view>
+  </view>
+</view> 

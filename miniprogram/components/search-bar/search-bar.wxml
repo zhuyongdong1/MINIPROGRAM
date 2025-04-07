@@ -1,0 +1,21 @@
+<view class="search-bar">
+  <view class="search-input-wrapper" bindtap="onTapSearch">
+    <view class="search-icon">
+      <text class="icon">🔍</text>
+    </view>
+    <input 
+      class="search-input" 
+      type="text" 
+      placeholder="{{placeholder}}" 
+      value="{{inputValue}}" 
+      focus="{{focus}}" 
+      bindinput="onInputChange" 
+      bindconfirm="onConfirmSearch"
+      confirm-type="search" 
+    />
+    <view wx:if="{{inputValue.length > 0}}" class="clear-icon" catchtap="onClearInput">
+      <text class="icon">✕</text>
+    </view>
+  </view>
+  <view wx:if="{{showCancel}}" class="cancel-btn" bindtap="onCancel">取消</view>
+</view> 

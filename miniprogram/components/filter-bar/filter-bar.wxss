@@ -1,0 +1,61 @@
+/* components/filter-bar/filter-bar.wxss */
+.filter-container {
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.filter-bar {
+  display: flex;
+  padding: 20rpx 30rpx;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.filter-item {
+  margin-right: 30rpx;
+  font-size: 28rpx;
+  color: #8a8a8a;
+  white-space: nowrap;
+  padding: 10rpx 24rpx;
+  border-radius: 30rpx;
+  transition: all 0.3s;
+}
+
+.filter-item.active {
+  background-color: #6e80e1;
+  color: white;
+  font-weight: 500;
+}
+
+.sub-filter {
+  display: flex;
+  margin: 0 30rpx 20rpx;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.sub-filter-item {
+  margin-right: 30rpx;
+  font-size: 26rpx;
+  color: #8a8a8a;
+  white-space: nowrap;
+  padding: 10rpx 0;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.sub-filter-item.active {
+  color: #6e80e1;
+  font-weight: 500;
+}
+
+.sub-filter-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4rpx;
+  background-color: #6e80e1;
+  border-radius: 2rpx;
+} 

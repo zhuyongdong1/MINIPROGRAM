@@ -1,0 +1,79 @@
+<!-- pages/user/user.wxml -->
+<view class="user-page">
+  <!-- 顶部用户信息区域 -->
+  <view class="user-header">
+    <view class="user-info" wx:if="{{hasUserInfo}}">
+      <view class="avatar-container">
+        <image class="avatar" src="{{userInfo.avatarUrl || '/images/default_avatar.png'}}" mode="aspectFill"></image>
+      </view>
+      <view class="user-name">{{userInfo.nickName || '读书用户'}}</view>
+      <view class="logout-btn" bindtap="onTapLogout">退出登录</view>
+    </view>
+    <view class="login-container" wx:else>
+      <view class="login-icon">👤</view>
+      <view class="login-text">登录后体验更多功能</view>
+      <button class="login-btn" bindtap="onTapLogin">点击登录</button>
+    </view>
+  </view>
+  
+  <!-- 阅读统计区域 -->
+  <view class="stats-container" wx:if="{{hasUserInfo}}">
+    <view class="stats-item">
+      <view class="stats-value">{{statistics.readCount}}</view>
+      <view class="stats-label">阅读书籍</view>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-item">
+      <view class="stats-value">{{statistics.readDays}}</view>
+      <view class="stats-label">阅读天数</view>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-item">
+      <view class="stats-value">{{statistics.bookmarkCount}}</view>
+      <view class="stats-label">书签数</view>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-item">
+      <view class="stats-value">{{statistics.noteCount}}</view>
+      <view class="stats-label">笔记数</view>
+    </view>
+  </view>
+  
+  <!-- 功能菜单区域 -->
+  <view class="menu-container">
+    <view class="menu-section">
+      <view class="section-title">我的功能</view>
+      <view class="menu-list">
+        <view class="menu-item" 
+              wx:for="{{menuList}}" 
+              wx:key="id" 
+              data-item="{{item}}" 
+              bindtap="onTapMenuItem">
+          <view class="menu-icon {{item.icon}}"></view>
+          <view class="menu-name">{{item.name}}</view>
+          <view class="menu-arrow">></view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="menu-section">
+      <view class="section-title">设置</view>
+      <view class="menu-list">
+        <view class="menu-item" 
+              wx:for="{{settingList}}" 
+              wx:key="id" 
+              data-item="{{item}}" 
+              bindtap="onTapMenuItem">
+          <view class="menu-icon {{item.icon}}"></view>
+          <view class="menu-name">{{item.name}}</view>
+          <view class="menu-arrow">></view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 版本信息 -->
+  <view class="version-info">
+    <text>当前版本：v1.0.0</text>
+  </view>
+</view> 

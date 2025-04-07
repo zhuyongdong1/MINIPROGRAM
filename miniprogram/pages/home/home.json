@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "小说阅读",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "search-bar": "/components/search-bar/search-bar",
+    "banner": "/components/banner/banner",
+    "book-list": "/components/book-list/book-list",
+    "category-grid": "/components/category-grid/category-grid",
+    "ranking-list": "/components/ranking-list/ranking-list"
+  }
+} 

@@ -1,0 +1,128 @@
+<!-- pages/book-detail/book-detail.wxml -->
+<view class="book-detail-page">
+  <!-- 加载中 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <view class="loading-text">加载中...</view>
+  </view>
+  
+  <!-- 图书详情内容 -->
+  <block wx:if="{{!loading && bookDetail}}">
+    <!-- 顶部图书信息 -->
+    <view class="book-header">
+      <view class="book-cover-container">
+        <image class="book-cover" src="{{bookDetail.coverUrl}}" mode="aspectFill"></image>
+      </view>
+      <view class="book-info">
+        <view class="book-title">{{bookDetail.title}}</view>
+        <view class="book-author">{{bookDetail.author}}</view>
+        <view class="book-score">
+          <text class="score-value">{{bookDetail.score}}</text>
+          <text class="score-text">分</text>
+          <text class="reader-count">{{bookDetail.readerCount}}人在读</text>
+        </view>
+        <view class="book-meta">
+          <text class="meta-item">{{bookDetail.category}}</text>
+          <text class="meta-item">{{bookDetail.status}}</text>
+          <text class="meta-item">{{bookDetail.wordCount}}</text>
+        </view>
+        <view class="book-tags">
+          <text class="tag-item" wx:for="{{bookDetail.tags}}" wx:key="*this">{{item}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 操作按钮区 -->
+    <view class="action-buttons">
+      <view class="action-button primary" bindtap="startReading">开始阅读</view>
+      <view class="action-button {{isInBookshelf ? 'secondary' : ''}}" bindtap="{{isInBookshelf ? 'removeFromBookshelf' : 'addToBookshelf'}}">
+        {{isInBookshelf ? '移出书架' : '加入书架'}}
+      </view>
+    </view>
+    
+    <!-- 添加成功提示 -->
+    <view class="add-success-tip" wx:if="{{showAddSuccessTip}}">
+      <text>已添加到书架</text>
+    </view>
+    
+    <!-- 标签切换区 -->
+    <view class="tab-header">
+      <view class="tab-item {{currentTab === 'intro' ? 'active' : ''}}" data-tab="intro" bindtap="switchTab">
+        <text>简介</text>
+        <view class="tab-line" wx:if="{{currentTab === 'intro'}}"></view>
+      </view>
+      <view class="tab-item {{currentTab === 'chapters' ? 'active' : ''}}" data-tab="chapters" bindtap="switchTab">
+        <text>目录</text>
+        <view class="tab-line" wx:if="{{currentTab === 'chapters'}}"></view>
+      </view>
+      <view class="tab-item {{currentTab === 'comments' ? 'active' : ''}}" data-tab="comments" bindtap="switchTab">
+        <text>评论</text>
+        <text class="comment-count">({{bookDetail.commentCount}})</text>
+        <view class="tab-line" wx:if="{{currentTab === 'comments'}}"></view>
+      </view>
+    </view>
+    
+    <!-- 内容区域 -->
+    <view class="tab-content">
+      <!-- 简介内容 -->
+      <view class="intro-content" wx:if="{{currentTab === 'intro'}}">
+        <view class="section-title">内容简介</view>
+        <view class="intro-text">{{bookDetail.description}}</view>
+        
+        <view class="section-title">更新信息</view>
+        <view class="update-info">
+          <text>最近更新：{{bookDetail.updateTime}}</text>
+        </view>
+        
+        <view class="section-title">相关推荐</view>
+        <view class="recommendation-list">
+          <view class="recommendation-item" 
+                wx:for="{{recommendations}}" 
+                wx:key="id" 
+                data-bookid="{{item.id}}" 
+                bindtap="onTapRecommendation">
+            <view class="rec-cover-container">
+              <image class="rec-cover" src="{{item.coverUrl}}" mode="aspectFill" lazy-load></image>
+            </view>
+            <view class="rec-info">
+              <view class="rec-title">{{item.title}}</view>
+              <view class="rec-author">{{item.author}}</view>
+              <view class="rec-score">{{item.score}}分</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 章节列表 -->
+      <view class="chapters-content" wx:if="{{currentTab === 'chapters'}}">
+        <view class="chapter-info">
+          <text>共{{chapters.length}}章</text>
+          <text>更新于{{bookDetail.updateTime}}</text>
+        </view>
+        <view class="chapter-list">
+          <view class="chapter-item {{item.isVip ? 'vip' : ''}}" 
+                wx:for="{{chapters}}" 
+                wx:key="id" 
+                data-index="{{index}}" 
+                bindtap="onTapChapter">
+            <view class="chapter-title">{{item.title}}</view>
+            <view class="chapter-meta">
+              <text class="chapter-time">{{item.updateTime}}</text>
+              <text class="vip-tag" wx:if="{{item.isVip}}">VIP</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 评论列表 -->
+      <view class="comments-content" wx:if="{{currentTab === 'comments'}}">
+        <view class="comment-placeholder">
+          <text>评论功能正在开发中...</text>
+        </view>
+      </view>
+    </view>
+  </block>
+  
+  <!-- 底部安全区域 -->
+  <view class="safe-bottom"></view>
+</view> 

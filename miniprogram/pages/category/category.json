@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "分类",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#f5f6fa",
+  "usingComponents": {
+    "filter-bar": "/components/filter-bar/filter-bar",
+    "book-list": "/components/book-list/book-list"
+  }
+} 

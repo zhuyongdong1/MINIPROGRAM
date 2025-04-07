@@ -1,0 +1,27 @@
+<view class="filter-container">
+  <!-- 主筛选栏 -->
+  <scroll-view class="filter-bar" scroll-x enhanced show-scrollbar="{{false}}">
+    <view 
+      wx:for="{{filters}}" 
+      wx:key="id" 
+      class="filter-item {{index === activeFilterIndex ? 'active' : ''}}"
+      bindtap="onTapFilter"
+      data-index="{{index}}"
+    >
+      {{item.name}}
+    </view>
+  </scroll-view>
+  
+  <!-- 子筛选栏 -->
+  <scroll-view wx:if="{{showSubFilter && subFilters.length > 0}}" class="sub-filter" scroll-x enhanced show-scrollbar="{{false}}">
+    <view 
+      wx:for="{{subFilters}}" 
+      wx:key="id" 
+      class="sub-filter-item {{index === activeSubFilterIndex ? 'active' : ''}}"
+      bindtap="onTapSubFilter"
+      data-index="{{index}}"
+    >
+      {{item.name}}
+    </view>
+  </scroll-view>
+</view> 

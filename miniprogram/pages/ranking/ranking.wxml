@@ -1,0 +1,76 @@
+<!-- pages/ranking/ranking.wxml -->
+<view class="ranking-page">
+  <!-- 排行榜Tab切换 -->
+  <view class="ranking-tabs">
+    <scroll-view scroll-x="{{true}}" class="tabs-scroll" enhanced show-scrollbar="{{false}}">
+      <view class="tabs-container">
+        <view class="tab-item {{index === activeRankIndex ? 'active' : ''}}" 
+              wx:for="{{rankTypes}}" 
+              wx:key="id"
+              data-index="{{index}}"
+              bindtap="onTabChange">
+          <text>{{item.name}}</text>
+          <view class="tab-line" wx:if="{{index === activeRankIndex}}"></view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  
+  <!-- 排行榜图书列表 -->
+  <view class="ranking-list" wx:if="{{books.length > 0}}">
+    <view class="book-item" 
+          wx:for="{{books}}" 
+          wx:key="id" 
+          bindtap="onTapBook" 
+          data-book-id="{{item.id}}">
+      <!-- 排名 -->
+      <view class="rank-number {{item.rankNum <= 3 ? 'top-rank' : ''}}">{{item.rankNum}}</view>
+      
+      <!-- 图书信息 -->
+      <view class="book-info">
+        <!-- 图书封面 -->
+        <view class="book-cover-container">
+          <image class="book-cover" src="{{item.coverUrl}}" mode="aspectFill" lazy-load></image>
+        </view>
+        
+        <!-- 图书详情 -->
+        <view class="book-details">
+          <view class="book-title">{{item.title}}</view>
+          <view class="book-author">{{item.author}}</view>
+          <view class="book-genre">{{item.genre}}</view>
+          <view class="book-score">
+            <text class="score-value">{{item.score}}</text>
+            <text class="score-text">分</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 空状态 -->
+  <view class="empty-container" wx:elif="{{!firstLoad && !loading}}">
+    <view class="empty-icon">🏆</view>
+    <view class="empty-text">暂无排行数据</view>
+  </view>
+  
+  <!-- 加载中提示 -->
+  <view class="loading-container" wx:if="{{loading && firstLoad}}">
+    <view class="loading-spinner"></view>
+    <view class="loading-text">加载中...</view>
+  </view>
+  
+  <!-- 加载更多 -->
+  <view class="loading-more" wx:if="{{loading && !firstLoad}}">
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+    <view class="loading-dot"></view>
+  </view>
+  
+  <!-- 没有更多数据 -->
+  <view class="no-more" wx:if="{{!loading && !hasMore && books.length > 0}}">
+    没有更多了
+  </view>
+  
+  <!-- 底部安全区域 -->
+  <view class="safe-bottom"></view>
+</view> 

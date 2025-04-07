@@ -1,0 +1,64 @@
+<!-- pages/home/home.wxml -->
+<scroll-view class="home-page" scroll-y enhanced show-scrollbar="{{false}}" refresher-enabled bind:refresherrefresh="onPullDownRefresh">
+  <!-- 搜索栏 -->
+  <search-bar bindclick="onTapSearch" />
+  
+  <!-- 轮播图 -->
+  <view class="banner-section">
+    <banner 
+      banners="{{banners}}" 
+      height="320" 
+      bindtap="onTapBanner" 
+    />
+  </view>
+  
+  <!-- 推荐小说 -->
+  <view class="section">
+    <book-list 
+      title="智能推荐" 
+      books="{{recommendBooks}}" 
+      horizontal 
+      bindmore="onMoreRecommend" 
+      bindtap="onTapBook" 
+    />
+  </view>
+  
+  <!-- 分类浏览 -->
+  <view class="section">
+    <category-grid 
+      title="分类浏览" 
+      categories="{{categories}}" 
+      bindtap="onTapCategory" 
+    />
+  </view>
+  
+  <!-- 热门排行榜 -->
+  <view class="section">
+    <ranking-list 
+      title="热门排行" 
+      books="{{hotRanking}}" 
+      bindmore="onMoreHotRanking" 
+      bindtap="onTapRankingItem" 
+    />
+  </view>
+  
+  <!-- 新书上架 -->
+  <view class="section">
+    <book-list 
+      title="新书上架" 
+      books="{{newBooks}}" 
+      horizontal 
+      bindmore="onMoreNewBooks" 
+      bindtap="onTapBook" 
+    />
+  </view>
+  
+  <!-- 底部安全区域 -->
+  <view class="safe-bottom"></view>
+</scroll-view>
+
+<!-- 加载中提示 -->
+<view class="loading-container" wx:if="{{loading}}">
+  <view class="loading-spinner"></view>
+  <view class="loading-text">加载中...</view>
+</view> 

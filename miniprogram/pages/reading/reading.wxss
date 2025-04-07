@@ -1,0 +1,408 @@
+/* pages/reading/reading.wxss */
+/* 主题相关样式 */
+.reading-page {
+  width: 100vw;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.theme-default {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+.theme-night {
+  background-color: #1a1a1a;
+  color: #999999;
+}
+
+.theme-paper {
+  background-color: #f8f3e8;
+  color: #5c5b56;
+}
+
+/* 加载中样式 */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 40rpx 0;
+}
+
+.loading-spinner {
+  width: 60rpx;
+  height: 60rpx;
+  border: 4rpx solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #2b87ff;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 20rpx;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  font-size: 26rpx;
+  color: #666;
+}
+
+/* 阅读容器 */
+.reading-container {
+  padding: 60rpx 20rpx 0rpx 20rpx;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 章节标题 */
+.chapter-header {
+  margin-bottom: 40rpx;
+}
+
+.chapter-title-text {
+  font-size: 40rpx;
+  font-weight: 600;
+  margin-bottom: 10rpx;
+}
+
+.chapter-meta {
+  font-size: 24rpx;
+  color: #999;
+  display: flex;
+}
+
+.word-count {
+  margin-right: 20rpx;
+}
+
+/* 章节内容 */
+.chapter-content {
+  flex: 1;
+  margin-bottom: 60rpx;
+  word-wrap: break-word;
+  word-break: break-all;
+  text-align: justify;
+}
+
+/* 章节导航 */
+.chapter-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 60rpx;
+  margin-bottom: 30rpx;
+}
+
+.nav-button {
+  padding: 20rpx 40rpx;
+  background-color: rgba(43, 135, 255, 0.1);
+  color: #2b87ff;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  text-align: center;
+}
+
+/* 顶部阅读信息 */
+.reading-info {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20rpx 30rpx;
+  background-color: rgba(226, 0, 0, 0.7);
+  color: #fff;
+  z-index: 100;
+  box-sizing: border-box;
+}
+
+.book-title {
+  font-size: 28rpx;
+  margin-bottom: 10rpx;
+}
+
+.chapter-title {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 6rpx;
+}
+
+.reading-progress {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* 顶部菜单 */
+.top-bar {
+  padding: 60rpx;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80rpx;
+  color: rgb(0, 0, 0);
+  display: flex;
+  align-items: center;
+  padding-left: 20rpx;
+  z-index: 1000;
+}
+
+.back-button {
+  font-size: 28rpx;
+  padding: 10rpx 20rpx;
+  border-radius: 10rpx;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.top-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20rpx 30rpx;
+  background-color: rgba(57, 27, 192, 0.8);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 200;
+  transform: translateY(-100%);
+  transition: transform 0.3s;
+  box-sizing: border-box;
+}
+
+.top-menu.show {
+  transform: translateY(0);
+}
+
+.menu-button {
+  padding: 10rpx;
+  font-size: 28rpx;
+}
+
+.menu-title {
+  font-size: 28rpx;
+  max-width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.menu-actions {
+  display: flex;
+}
+
+.menu-actions .menu-button {
+  margin-left: 30rpx;
+}
+
+/* 底部菜单 */
+.bottom-menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20rpx 30rpx;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  display: flex;
+  justify-content: space-around;
+  z-index: 200;
+  transform: translateY(100%);
+  transition: transform 0.3s;
+  box-sizing: border-box;
+}
+
+.bottom-menu.show {
+  transform: translateY(0);
+}
+
+/* 弹窗公共样式 */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 300;
+}
+
+.modal-content {
+  position: fixed;
+  background-color: #fff;
+  z-index: 301;
+  transition: all 0.3s;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.modal-close {
+  font-size: 40rpx;
+  color: #999;
+  padding: 0 10rpx;
+}
+
+/* 章节列表弹窗 */
+.chapter-list-modal {
+  display: none;
+}
+
+.chapter-list-modal.show {
+  display: block;
+}
+
+.chapter-list-modal .modal-content {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 80%;
+  transform: translateX(-100%);
+}
+
+.chapter-list-modal.show .modal-content {
+  transform: translateX(0);
+}
+
+.chapter-scroll {
+  height: calc(100vh - 100rpx);
+}
+
+.chapter-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.chapter-list-item.active {
+  color: #2b87ff;
+  background-color: rgba(43, 135, 255, 0.05);
+}
+
+.item-title {
+  flex: 1;
+  font-size: 28rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.current-mark {
+  font-size: 24rpx;
+  color: #2b87ff;
+  padding: 4rpx 10rpx;
+  background-color: rgba(43, 135, 255, 0.1);
+  border-radius: 6rpx;
+  margin-left: 10rpx;
+}
+
+/* 设置弹窗 */
+.settings-modal {
+  display: none;
+}
+
+.settings-modal.show {
+  display: block;
+}
+
+.settings-modal .modal-content {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(100%);
+}
+
+.settings-modal.show .modal-content {
+  transform: translateY(0);
+}
+
+.settings-content {
+  padding: 30rpx;
+}
+
+.setting-group {
+  margin-bottom: 40rpx;
+}
+
+.setting-label {
+  font-size: 30rpx;
+  color: #333;
+  margin-bottom:20rpx
+  }
+
+.setting-label {
+  font-size: 30rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.setting-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.control-button {
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+}
+
+.control-value {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.theme-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.theme-item {
+  flex: 1;
+  height: 100rpx;
+  margin: 0 10rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10rpx;
+  position: relative;
+}
+
+.theme-item.active {
+  border: 2rpx solid #2b87ff;
+}
+
+.theme-check {
+  position: absolute;
+  top: 10rpx;
+  right: 10rpx;
+  font-size: 24rpx;
+  color: #2b87ff;
+} 

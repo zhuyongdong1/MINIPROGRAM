@@ -1,0 +1,80 @@
+<!-- pages/category/category.wxml -->
+<view class="category-page">
+  <!-- 左右布局容器 -->
+  <view class="category-container">
+    <!-- 左侧分类导航 -->
+    <view class="category-sidebar">
+      <scroll-view scroll-y class="category-scroll">
+        <view 
+          wx:for="{{filters}}" 
+          wx:key="id" 
+          class="category-item {{index === activeFilterIndex ? 'active' : ''}}" 
+          bindtap="onFilterChange" 
+          data-index="{{index}}"
+        >
+          {{item.name}}
+        </view>
+      </scroll-view>
+    </view>
+    
+    <!-- 右侧内容区 -->
+    <view class="category-content">
+      <!-- 子筛选项 -->
+      <scroll-view class="sub-filter-bar" scroll-x enhanced show-scrollbar="{{false}}">
+        <view 
+          wx:for="{{subFilters}}" 
+          wx:key="id" 
+          class="sub-filter-item {{index === activeSubFilterIndex ? 'active' : ''}}" 
+          bindtap="onSubFilterChange" 
+          data-index="{{index}}"
+        >
+          {{item.name}}
+        </view>
+      </scroll-view>
+      
+      <!-- 图书列表 -->
+      <scroll-view 
+        scroll-y 
+        class="book-scroll" 
+        bindscrolltolower="onReachBottom"
+        enable-back-to-top
+      >
+        <view class="category-list" wx:if="{{books.length > 0}}">
+          <book-list 
+            books="{{books}}"
+            horizontal="{{false}}"
+            columnCount="2"
+            bindtap="onTapBook"
+          />
+        </view>
+        
+        <!-- 暂无数据 -->
+        <view class="empty-container" wx:elif="{{!firstLoad && !loading}}">
+          <view class="empty-icon">📚</view>
+          <view class="empty-text">暂无数据</view>
+        </view>
+        
+        <!-- 加载中提示 -->
+        <view class="loading-container" wx:if="{{loading && firstLoad}}">
+          <view class="loading-spinner"></view>
+          <view class="loading-text">加载中...</view>
+        </view>
+        
+        <!-- 加载更多 -->
+        <view class="loading-more" wx:if="{{loading && !firstLoad}}">
+          <view class="loading-dot"></view>
+          <view class="loading-dot"></view>
+          <view class="loading-dot"></view>
+        </view>
+        
+        <!-- 没有更多数据 -->
+        <view class="no-more" wx:if="{{!loading && !hasMore && books.length > 0}}">
+          没有更多了
+        </view>
+        
+        <!-- 底部安全区域 -->
+        <view class="safe-bottom"></view>
+      </scroll-view>
+    </view>
+  </view>
+</view> 

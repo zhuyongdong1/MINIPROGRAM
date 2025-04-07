@@ -1,0 +1,233 @@
+/* pages/user/user.wxss */
+.user-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5f6fa;
+}
+
+/* 顶部用户信息区域 */
+.user-header {
+  background: linear-gradient(135deg, #4a90e2, #2b87ff);
+  padding: 40rpx 30rpx;
+  color: #fff;
+  position: relative;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx 0;
+}
+
+.avatar-container {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 75rpx;
+  overflow: hidden;
+  border: 4rpx solid rgba(255, 255, 255, 0.5);
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.2);
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+}
+
+.user-name {
+  font-size: 36rpx;
+  font-weight: 600;
+  margin-bottom: 10rpx;
+}
+
+.logout-btn {
+  position: absolute;
+  top: 40rpx;
+  right: 40rpx;
+  font-size: 26rpx;
+  padding: 6rpx 20rpx;
+  border: 1rpx solid rgba(255, 255, 255, 0.7);
+  border-radius: 30rpx;
+}
+
+/* 登录区域 */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60rpx 0;
+}
+
+.login-icon {
+  font-size: 100rpx;
+  margin-bottom: 20rpx;
+}
+
+.login-text {
+  font-size: 32rpx;
+  margin-bottom: 40rpx;
+}
+
+.login-btn {
+  width: 300rpx;
+  height: 80rpx;
+  background-color: #fff;
+  color: #2b87ff;
+  border-radius: 40rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.2);
+}
+
+/* 统计区域 */
+.stats-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  background-color: #fff;
+  margin: -40rpx 20rpx 20rpx;
+  border-radius: 12rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.stats-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stats-value {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.stats-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.stats-divider {
+  width: 1rpx;
+  height: 60rpx;
+  background-color: #eee;
+}
+
+/* 菜单区域 */
+.menu-container {
+  flex: 1;
+  padding: 0 20rpx 20rpx;
+}
+
+.menu-section {
+  margin-bottom: 20rpx;
+  background-color: #fff;
+  border-radius: 12rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  padding: 20rpx 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.menu-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 30rpx 30rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36rpx;
+}
+
+/* 图标样式 */
+.menu-icon.star::before {
+  content: '⭐';
+  color: #f5a623;
+}
+
+.menu-icon.history::before {
+  content: '⏱️';
+  color: #4a90e2;
+}
+
+.menu-icon.note::before {
+  content: '📝';
+  color: #7ed321;
+}
+
+.menu-icon.feedback::before {
+  content: '📮';
+  color: #50e3c2;
+}
+
+.menu-icon.theme::before {
+  content: '🎨';
+  color: #b8e986;
+}
+
+.menu-icon.font::before {
+  content: '📖';
+  color: #bd10e0;
+}
+
+.menu-icon.clear::before {
+  content: '🗑️';
+  color: #d0021b;
+}
+
+.menu-icon.about::before {
+  content: 'ℹ️';
+  color: #4a90e2;
+}
+
+.menu-name {
+  flex: 1;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.menu-arrow {
+  font-size: 28rpx;
+  color: #999;
+  margin-left: 10rpx;
+}
+
+/* 版本信息 */
+.version-info {
+  text-align: center;
+  padding: 40rpx 0;
+  font-size: 24rpx;
+  color: #999;
+} 

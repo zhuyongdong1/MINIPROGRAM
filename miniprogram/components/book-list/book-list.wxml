@@ -1,0 +1,61 @@
+<!-- components/book-list/book-list.wxml -->
+<view class="book-list-container">
+  <!-- 标题栏 -->
+  <view class="list-header" wx:if="{{title}}">
+    <view class="list-title">{{title}}</view>
+    <view class="list-more" wx:if="{{showMoreLink}}" bindtap="onTapMore">
+      <text>{{moreText}}</text>
+      <view class="more-icon">></view>
+    </view>
+  </view>
+  
+  <!-- 横向滚动列表 -->
+  <scroll-view class="scroll-list" scroll-x="{{true}}" wx:if="{{horizontal && books.length > 0}}">
+    <view class="book-items">
+      <view class="book-item" 
+            wx:for="{{books}}" 
+            wx:key="id" 
+            bindtap="onTapBook" 
+            data-index="{{index}}">
+        <view class="book-cover-container">
+          <image class="book-cover" src="{{item.coverUrl}}" mode="aspectFill" lazy-load></image>
+          <view class="book-tag" wx:if="{{item.tag}}">{{item.tag}}</view>
+        </view>
+        <view class="book-info">
+          <view class="book-title">{{item.title}}</view>
+          <view class="book-author" wx:if="{{item.author}}">{{item.author}}</view>
+          <view class="book-desc" wx:if="{{item.description}}">{{item.description}}</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  
+  <!-- 网格列表 -->
+  <view class="grid-list" wx:elif="{{!horizontal && books.length > 0}}">
+    <view class="grid-items" style="grid-template-columns: repeat({{columnCount}}, 1fr);">
+      <view class="grid-item" 
+            wx:for="{{books}}" 
+            wx:key="id" 
+            bindtap="onTapBook" 
+            data-index="{{index}}">
+        <view class="book-cover-container">
+          <image class="book-cover" src="{{item.coverUrl}}" mode="aspectFill" lazy-load></image>
+          <view class="book-tag" wx:if="{{item.tag}}">{{item.tag}}</view>
+        </view>
+        <view class="book-info">
+          <view class="book-title">{{item.title}}</view>
+          <view class="book-author" wx:if="{{item.author}}">{{item.author}}</view>
+          <view class="book-score" wx:if="{{item.score}}">
+            <text class="score-value">{{item.score}}</text>
+            <text class="score-text">分</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{books.length === 0}}">
+    <text>暂无图书</text>
+  </view>
+</view> 
